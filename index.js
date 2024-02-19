@@ -15,6 +15,7 @@ const telegramGroupChatId = '-891865410';
 
 const bot = new TelegramBot(bott, { polling: true });
 
+
 app.post('/message', (req, res) => {
     const { message } = req.body;
     console.log(message);
