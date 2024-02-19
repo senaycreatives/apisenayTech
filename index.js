@@ -47,6 +47,6 @@ app.post('/message', (req, res) => {
         });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.listen(3000, () => {
+    console.log(`Server is running on 3000 ${3000}`);
 });
