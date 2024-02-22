@@ -20,7 +20,7 @@ router.get('/',async (req, res) => {
 router.post('/',multerconfig.single('image'), (req, res) => {
     try {
         console.log(validateJoi(req.body))
-        req.body.Image = 'http://localhost:3000/images/' + req.file.filename;
+        req.body.Image = 'https://crabby-frog-swimsuit.cyclic.app/images/' + req.file.filename;
         const {error}= validateJoi(req.body);
         console.log(error)
         if(error) return res.status(400).send(error.details[0].message)
@@ -53,7 +53,7 @@ router.put('/:id',multerconfig.single('image'),async(req,res)=>{
         const isvalid = mongoose.Types.ObjectId.isValid(id)
         if (!isvalid) return res.status(400).send('The admin with the given ID was not found.')
         if(req.file){
-            req.body.Image = 'http://localhost:3000/images/' + req.file.filename;
+            req.body.Image = 'https://crabby-frog-swimsuit.cyclic.app/images/' + req.file.filename;
         }
         const {error}= validateJoiforput(req.body);
         if(error) return res.status(400).send(error.details[0].message)

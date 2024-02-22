@@ -29,7 +29,7 @@ router.get('/me', AuthMiddleware,async (req, res) => {
 router.post('/', AuthMiddleware, multerconfig.single('image'), (req, res) => {
     try {
         req.body.Author = req.user.id;
-        req.body.image = 'http://localhost:3000/images/' + req.file.filename;
+        req.body.image = 'https://crabby-frog-swimsuit.cyclic.app/images/' + req.file.filename;
 
         const { error } = validateJoi(req.body);
 
