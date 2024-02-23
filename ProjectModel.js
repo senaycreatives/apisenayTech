@@ -32,7 +32,13 @@ const ProjectSchema= new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'ProjectCatagory',
         required: true
+    },
+    ProjectType: {
+        type: String,
+        enum: ['MobileApp', 'WebDev', 'TelegramBot','Ui/Ux Design'], // Define your options here
+        required: true
     }
+
     
     
 
@@ -43,7 +49,9 @@ const Projectjoi=Joi.object({
     Title:Joi.string().min(6).required(),
     Description:Joi.string().min(6).required(),
     Catagory:Joi.string().required(),
-    image:Joi.string().required()
+    image:Joi.string().required(),
+    ProjectType:Joi.string().valid('MobileApp','WebDev','TelegramBot','Ui/Ux Design').required(),
+    
 })
 const validateJoi=(data)=>{
     return Projectjoi.validate(data)

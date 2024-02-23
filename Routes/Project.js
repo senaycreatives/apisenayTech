@@ -15,6 +15,19 @@ router.get('/',async (req, res) => {
     }
   
 })
+router.get('/:projectType',async (req, res) => {
+    try{
+    const ProjectTypes=['MobileApp', 'WebDev', 'TelegramBot','Ui/Ux Design']
+    if(!ProjectTypes.includes(req.params.projectType)) return res.status(400).send('Invalid Project Type')
+        
+        const result = await ProjectModel.find({projectType:req.params.projectType})
+        res.send(result)
+    }
+    catch(err){
+   res.status(500).send('Error in getting data')
+        }
+})
+
 
 router.post('/',AuthMiddleware,multerconfig.single('image'), async(req, res) => {
     try {

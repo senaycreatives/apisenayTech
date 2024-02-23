@@ -4,6 +4,7 @@ const { BlogModel, validateJoi } = require('../BlogModel');
 const AuthMiddleware = require('../Middleware/AuthorizationMiddleware');
 const mongoose = require('mongoose');
 const multerconfig = require('../MulterConfig');
+const { route } = require('./Admin');
 
 
 
@@ -11,7 +12,7 @@ const multerconfig = require('../MulterConfig');
 router.get('/', async (req, res) => {
     try {
         const result = await BlogModel.find();
-        res.send(result);
+        res.send(result.reverse());
     } catch (err) {
         res.status(500).send('Error in getting data');
     }
@@ -42,7 +43,17 @@ router.post('/', AuthMiddleware, multerconfig.single('image'), (req, res) => {
         res.status(500).send('Error in Saving');
     }
 });
-
+router.get('/featured', async (req, res) => {
+    try {
+        const result = await BlogModel.find({  isFeatured: true })
+        res.send(result)
+    }
+    catch (err) {
+        res.status(500).send('Error in getting data')
+        
+    }
+    
+})
 router.get('/:id', async (req, res) => {
     try {
         const id = req.params.id;

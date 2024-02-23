@@ -38,6 +38,11 @@ const BlogSchema= new Schema({
     
 
     },
+    isFeatured:{
+        type: Boolean,
+        default: false
+    }
+    ,
     Author:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Admin'
@@ -48,6 +53,7 @@ const joischema =Joi.object( {
     Description:Joi.string().min(6).required(),
     image:Joi.string().required(),
     Author:Joi.string().required(),
+    isFeatured:Joi.boolean().default(false),
 
     content:Joi.string().min(6).required(),
 
