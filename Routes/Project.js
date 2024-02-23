@@ -31,7 +31,7 @@ router.get('/:projectType',async (req, res) => {
 
 router.post('/',AuthMiddleware,multerconfig.single('image'), async(req, res) => {
     try {
-        req.body.image = 'https://crabby-frog-swimsuit.cyclic.app/images/' + req.file.filename;
+        req.body.image = 'https://api.senaycreatives.com/images/' + req.file.filename;
         const {error}= validateJoi(req.body);
         if(error) return res.status(400).send(error.details[0].message)
         const isvalid = mongoose.Types.ObjectId.isValid(req.body.Catagory)

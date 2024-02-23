@@ -1,6 +1,7 @@
 const express=require('express')
 const router=express.Router()
 const bycrypt = require('bcrypt');
+const logger = require('../logger');
 const {AdminModel,validateJoi,validateJoiforput}=require('../AdminModel')
 const mongoose=require('mongoose')
 const multerconfig = require('../MulterConfig');
@@ -9,10 +10,13 @@ const multerconfig = require('../MulterConfig');
 router.get('/',async (req, res) => {
         try{
                 const result = await AdminModel.find()
+                
                 res.send(result)
         }
         catch(err){
      res.status(500).send('Error in getting data')
+ 
+
         }
     
 })
@@ -20,7 +24,7 @@ router.get('/',async (req, res) => {
 router.post('/',multerconfig.single('image'), (req, res) => {
     try {
         console.log(validateJoi(req.body))
-        req.body.Image = 'https://crabby-frog-swimsuit.cyclic.app/images/' + req.file.filename;
+        req.body.Image = 'https://api.senaycreatives.com/images/' + req.file.filename;
         const {error}= validateJoi(req.body);
         console.log(error)
         if(error) return res.status(400).send(error.details[0].message)
@@ -31,6 +35,7 @@ router.post('/',multerconfig.single('image'), (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).send('Error in Saving')
+
     }
 })
 router.get('/:id',async(req,res)=>{
@@ -53,7 +58,7 @@ router.put('/:id',multerconfig.single('image'),async(req,res)=>{
         const isvalid = mongoose.Types.ObjectId.isValid(id)
         if (!isvalid) return res.status(400).send('The admin with the given ID was not found.')
         if(req.file){
-            req.body.Image = 'https://crabby-frog-swimsuit.cyclic.app/images/' + req.file.filename;
+            req.body.Image = 'https://api.senaycreatives.com/images/' + req.file.filename;
         }
         const {error}= validateJoiforput(req.body);
         if(error) return res.status(400).send(error.details[0].message)

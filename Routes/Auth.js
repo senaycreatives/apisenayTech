@@ -4,7 +4,7 @@ const {AdminModel}=require('../AdminModel')
 const bcrypt = require('bcrypt');
 const joi = require('joi');
 const jwt = require('jsonwebtoken');
-const jwtSecret = 'mysecretkey'
+const jwtSecret = process.env.JWT_SECRET
 const createToken = (_id, username) => {
     return jwt.sign({ id:_id, username: username}, jwtSecret, { expiresIn: '3d' })
 }

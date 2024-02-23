@@ -1,6 +1,6 @@
 const jwt=require('jsonwebtoken')
 
-const jwtSecret='mysecretkey'
+const jwtSecret=process.env.JWT_SECRET
 module.exports=(req,res,next)=>{
     const token=req.header('_auth')
     console.log(token)
