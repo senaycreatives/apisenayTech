@@ -9,7 +9,7 @@ const multerconfig = require('../MulterConfig');
 
 router.get('/',async (req, res) => {
         try{
-                const result = await AdminModel.find()
+                const result = await AdminModel.find().select('-Password')
                 
                 res.send(result)
         }

@@ -15,7 +15,7 @@ router.get('/',async (req, res) => {
     }
   
 })
-router.get('/:projectType',async (req, res) => {
+router.get('/type/:projectType',async (req, res) => {
     try{
     const ProjectTypes=['MobileApp', 'WebDev', 'TelegramBot','Ui/Ux Design']
     if(!ProjectTypes.includes(req.params.projectType)) return res.status(400).send('Invalid Project Type')
@@ -27,6 +27,7 @@ router.get('/:projectType',async (req, res) => {
    res.status(500).send('Error in getting data')
         }
 })
+
 
 
 router.post('/',AuthMiddleware,multerconfig.single('image'), async(req, res) => {
@@ -47,6 +48,20 @@ router.post('/',AuthMiddleware,multerconfig.single('image'), async(req, res) => 
         res.status(500).send('Error in Saving')
         console.log(error,'errp')
     }
+
+})
+router.get('/catagory/:catagoryid',async(req,res)=>{
+try {
+    const id = req.params.catagoryid
+    const isvalid = mongoose.Types.ObjectId.isValid(id)
+    const catagory = await ProjectCatagory.findById(id)
+    if (!isvalid) return res.status(404).send('The project with the given ID was not found.')
+    const result=await ProjectModel.find({Catagory:id})
+    res.send(result)
+}
+catch (error) {
+    res.status(500).send('Error in getting data')
+}
 
 })
 router.get('/:id',async(req,res)=>{
